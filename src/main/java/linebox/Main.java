@@ -13,7 +13,6 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-import org.jbox2d.collision.shapes.EdgeShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
@@ -22,7 +21,6 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.DistanceJointDef;
-import org.jbox2d.dynamics.joints.JointType;
 
 public class Main extends JComponent {
 
@@ -60,8 +58,8 @@ public class Main extends JComponent {
 					bd.position.set(0, 0);
 					bd.type = BodyType.STATIC;
 
-					EdgeShape shape = new EdgeShape();
-					shape.set(last, point);
+					PolygonShape shape = new PolygonShape();
+					shape.set(new Vec2[] {last, point}, 2);
 
 					FixtureDef fd = new FixtureDef();
 					fd.shape = shape;
@@ -83,7 +81,7 @@ public class Main extends JComponent {
 	private LinkedList<LinkedList<Vec2>> lines = new LinkedList<>();
 
 	public Main() {
-		world = new World(GRAVITY);
+		world = new World(GRAVITY, true);
 
 		{
 			BodyDef bd = new BodyDef();
